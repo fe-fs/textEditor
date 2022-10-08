@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -36,12 +37,19 @@ public class TextEditor extends JFrame implements ActionListener {
 	JButton fontColorButton; //user will change color for the font
 	JComboBox fontBox; //user will be able to change fonts
 	
-	//menu bar
+	//menu bar var
 	JMenuBar menuBar;
 	JMenu fileMenu;
+	JMenu editMenu;
+	JMenu aboutMenu;
 	JMenuItem openItem;
 	JMenuItem saveItem;
 	JMenuItem exitItem;
+	JMenuItem cutItem;
+	JMenuItem copyItem;
+	JMenuItem pasteItem;
+	JMenuItem infoItem;
+	
 	
 	TextEditor(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //click x on the corner to exit
@@ -92,14 +100,24 @@ public class TextEditor extends JFrame implements ActionListener {
 		//Menubar
 		menuBar = new JMenuBar();
 		fileMenu = new JMenu("File");
+		editMenu = new JMenu("Edit");
+		aboutMenu = new JMenu("About");
 		openItem = new JMenuItem("Open");
 		saveItem = new JMenuItem("Save");
 		exitItem = new JMenuItem("Exit");
+		cutItem = new JMenuItem("Cut");
+		copyItem = new JMenuItem("Copy");
+		pasteItem = new JMenuItem("Paste");
+		infoItem = new JMenuItem("Info");
 		
 		//adding action listeners to the items on file menu
 		openItem.addActionListener(this);
 		saveItem.addActionListener(this);
 		exitItem.addActionListener(this);
+		cutItem.addActionListener(this);
+		copyItem.addActionListener(this);
+		pasteItem.addActionListener(this);
+		infoItem.addActionListener(this);
 		
 		//Layers here -> Adding all the tab items to the file menu. The file menu to the menuBar. And the menuBar to the frame.
 		
@@ -108,8 +126,20 @@ public class TextEditor extends JFrame implements ActionListener {
 		fileMenu.add(saveItem);
 		fileMenu.add(exitItem);
 		
-		//menu to the menuBar
+		//tab edit itens to edit menu
+		editMenu.add(cutItem);
+		editMenu.add(copyItem);
+		editMenu.add(pasteItem);
+		
+		//tab about item
+		aboutMenu.add(infoItem);
+		
+		
+		//menu tabs to the menuBar
 		menuBar.add(fileMenu);
+		menuBar.add(editMenu);
+		menuBar.add(aboutMenu);
+		
 		
 		//Adding to the frame
 		this.setJMenuBar(menuBar);
@@ -121,6 +151,7 @@ public class TextEditor extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 	
+	//Making the UI work
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//change font color
@@ -137,7 +168,7 @@ public class TextEditor extends JFrame implements ActionListener {
 			textArea.setFont(new Font((String)fontBox.getSelectedItem(), Font.PLAIN, textArea.getFont().getSize()));
 		}
 		
-		//file tab buttons
+		//File Menu OPEN | SAVE | EXIT
 		if(e.getSource()==openItem) {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new File("."));
@@ -207,7 +238,24 @@ public class TextEditor extends JFrame implements ActionListener {
 			 System.exit(0);
 		}
 		
+		//EditMenu
+		
+		if(e.getSource()==cutItem) {
+			 System.exit(0);
 	}
+		if(e.getSource()==copyItem) {
+			 System.exit(0);
+	}
+		if(e.getSource()==pasteItem) {
+			 System.exit(0);
+	}
+		
 	
+	//About
+		if(e.getSource()==infoItem) {
+			 JOptionPane.showMessageDialog(this, "Created by Fernanda Silva - Text Editor made with JAVA  ");
+	}
+		
 	
+	}
 }
