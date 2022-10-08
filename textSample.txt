@@ -1,0 +1,11 @@
+Hello World!
+This text editor let you change the font, size and color of your text!
+
+You are able to save .txt files, change directories to save it
+
+search for .txt files and open it back here.
+
+
+
+
+

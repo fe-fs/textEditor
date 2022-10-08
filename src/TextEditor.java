@@ -5,10 +5,15 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener; //to be able to handle events
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -20,6 +25,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class TextEditor extends JFrame implements ActionListener {
 	
@@ -90,9 +96,14 @@ public class TextEditor extends JFrame implements ActionListener {
 		saveItem = new JMenuItem("Save");
 		exitItem = new JMenuItem("Exit");
 		
-		//Layers here -> Adding all the menu itens to the menu. The menu to the menuBar. And the menuBar to the frame.
+		//adding action listeners to the items on file menu
+		openItem.addActionListener(this);
+		saveItem.addActionListener(this);
+		exitItem.addActionListener(this);
 		
-		//menu itens to the menu
+		//Layers here -> Adding all the tab items to the file menu. The file menu to the menuBar. And the menuBar to the frame.
+		
+		//tab itens to the file menu 
 		fileMenu.add(openItem);
 		fileMenu.add(saveItem);
 		fileMenu.add(exitItem);
@@ -125,6 +136,77 @@ public class TextEditor extends JFrame implements ActionListener {
 		if(e.getSource()==fontBox) {
 			textArea.setFont(new Font((String)fontBox.getSelectedItem(), Font.PLAIN, textArea.getFont().getSize()));
 		}
+		
+		//file tab buttons
+		if(e.getSource()==openItem) {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File("."));
+			
+			//add a filter to search for the file extension .txt
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Text File", "txt");
+			fileChooser.setFileFilter(filter); //apply 
+			
+			//show the open window and return the file you selected to be opened.
+			int response = fileChooser.showOpenDialog(null);
+			
+			if(response == JFileChooser.APPROVE_OPTION) {
+				File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+				Scanner fileIn = null;
+				
+				try {
+					fileIn = new Scanner(file);
+					
+					if(file.isFile()) { //check if file is real
+						while(fileIn.hasNextLine()) { //reading the file line by line
+							String line = fileIn.nextLine()+"\n"; 
+							textArea.append(line); //show it on the text area
+						}
+					}
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} finally {
+					//close scanner
+					fileIn.close();
+				}
+			}
+			
+		}
+		
+		
+		if(e.getSource()==saveItem) {
+			 JFileChooser fileChooser = new JFileChooser();
+			 
+			 												//use a file path to where you wish to begin the file as default or
+			 fileChooser.setCurrentDirectory(new File(".")); //"." to set default save place to the current project folder
+			 
+			 int response = fileChooser.showSaveDialog(null);
+			 
+			 if(response == JFileChooser.APPROVE_OPTION) {
+				 File file;
+				 PrintWriter fileOut = null;
+				 
+				 file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+				 
+				 try {
+					fileOut = new PrintWriter(file);
+					fileOut.println(textArea.getText());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} finally { //to close this try catch block
+					fileOut.close();
+					
+				}
+			 }
+			 
+		}
+		
+		
+		if(e.getSource()==exitItem) {
+			 System.exit(0);
+		}
+		
 	}
 	
 	
