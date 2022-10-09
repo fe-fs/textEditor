@@ -42,6 +42,7 @@ public class TextEditor extends JFrame implements ActionListener {
 	JMenu fileMenu;
 	JMenu editMenu;
 	JMenu aboutMenu;
+	JMenuItem newItem;
 	JMenuItem openItem;
 	JMenuItem saveItem;
 	JMenuItem exitItem;
@@ -102,6 +103,7 @@ public class TextEditor extends JFrame implements ActionListener {
 		fileMenu = new JMenu("File");
 		editMenu = new JMenu("Edit");
 		aboutMenu = new JMenu("About");
+		newItem = new JMenuItem("New");
 		openItem = new JMenuItem("Open");
 		saveItem = new JMenuItem("Save");
 		exitItem = new JMenuItem("Exit");
@@ -111,6 +113,7 @@ public class TextEditor extends JFrame implements ActionListener {
 		infoItem = new JMenuItem("Info");
 		
 		//adding action listeners to the items on file menu
+		newItem.addActionListener(this);
 		openItem.addActionListener(this);
 		saveItem.addActionListener(this);
 		exitItem.addActionListener(this);
@@ -121,7 +124,8 @@ public class TextEditor extends JFrame implements ActionListener {
 		
 		//Layers here -> Adding all the tab items to the file menu. The file menu to the menuBar. And the menuBar to the frame.
 		
-		//tab itens to the file menu 
+		//tab itens to the file menu
+		fileMenu.add(newItem);
 		fileMenu.add(openItem);
 		fileMenu.add(saveItem);
 		fileMenu.add(exitItem);
@@ -168,7 +172,11 @@ public class TextEditor extends JFrame implements ActionListener {
 			textArea.setFont(new Font((String)fontBox.getSelectedItem(), Font.PLAIN, textArea.getFont().getSize()));
 		}
 		
-		//File Menu OPEN | SAVE | EXIT
+		//File Menu NEW | OPEN | SAVE | EXIT
+		if(e.getSource()==newItem) {
+			this.setTitle("Untitled.txt");
+			textArea.setText(" ");
+		}
 		if(e.getSource()==openItem) {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new File("."));
@@ -238,16 +246,16 @@ public class TextEditor extends JFrame implements ActionListener {
 			 System.exit(0);
 		}
 		
-		//EditMenu
+		//EditMenu CUT | COPY | PASTE
 		
 		if(e.getSource()==cutItem) {
-			 System.exit(0);
+			 textArea.cut(); //JTextComponent
 	}
 		if(e.getSource()==copyItem) {
-			 System.exit(0);
+			 textArea.copy();
 	}
 		if(e.getSource()==pasteItem) {
-			 System.exit(0);
+			 textArea.paste();
 	}
 		
 	
