@@ -1,4 +1,6 @@
-
+/*Class with custom setup for swing J button look
+ * Contain radius setup, changes for click, over mouse colors
+ * */
 
 import java.awt.Color;
 import java.awt.Graphics;

@@ -41,7 +41,7 @@ public class TextEditor extends JFrame implements ActionListener {
 	Button fontColorButton; //user will change color for the font
 	JComboBox fontBox; //user will be able to change fonts
 	
-	//menu bar var
+	//menu bar variables
 	JMenuBar menuBar;
 	JMenu fileMenu;
 	JMenu editMenu;
