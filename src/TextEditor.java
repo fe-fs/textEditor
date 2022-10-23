@@ -57,6 +57,7 @@ public class TextEditor extends JFrame implements ActionListener {
 	
 	
 	TextEditor(){
+		setResizable(false);
 		getContentPane().setBackground(new Color(199, 199, 216));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //click x on the corner to exit
 		this.setTitle("FEFS Text Editor Project!");
