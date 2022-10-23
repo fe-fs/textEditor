@@ -374,7 +374,7 @@ public class TextEditor extends JFrame implements ActionListener {
 		if(e.getSource()==infoItem) {
 			 JOptionPane.showMessageDialog(this, "Created by Fernanda Silva - Text Editor made with JAVA  ");
 	}
-		
+	
 	
 	}
 }
